@@ -1,5 +1,10 @@
 package com.example.emailschedular.payload;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Data
 public class EmailResponse {
 
     private boolean success;

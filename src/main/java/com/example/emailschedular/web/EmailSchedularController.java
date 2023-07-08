@@ -29,12 +29,14 @@ public class EmailSchedularController {
     public ResponseEntity<EmailResponse> scheduleEmail(@Valid @RequestBody EmailRequest emailRequest) {
         try {
             ZonedDateTime dateTime = ZonedDateTime.of(emailRequest.getDateTime(), emailRequest.getTimeZone());
+
             if (dateTime.isBefore(ZonedDateTime.now())) {
                 EmailResponse emailResponse = new EmailResponse(false,
                         "dateTime must be after current Time");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(emailResponse);
             }
+
             JobDetail jobDetail = buildJobDetail(emailRequest);
             Trigger trigger = buildTrigger(jobDetail, dateTime);
 
